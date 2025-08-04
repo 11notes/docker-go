@@ -66,4 +66,4 @@ docker pull quay.io/11notes/go:1.24.5
 # ElevenNotes™️
 This image is provided to you at your own risk. Always make backups before updating an image to a different version. Check the [releases](https://github.com/11notes/docker-go/releases) for breaking changes. If you have any problems with using this image simply raise an [issue](https://github.com/11notes/docker-go/issues), thanks. If you have a question or inputs please create a new [discussion](https://github.com/11notes/docker-go/discussions) instead of an issue. You can find all my other repositories on [github](https://github.com/11notes?tab=repositories).
 
-*created 16.07.2025, 11:13:44 (CET)*
+*created 04.08.2025, 17:09:35 (CET)*
