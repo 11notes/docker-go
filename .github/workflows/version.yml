@@ -18,7 +18,7 @@ jobs:
             const etc = {
               version:"${{ github.event.inputs.version }}",
               semver:{disable:{rolling: true}}
-            };s
+            };
             core.exportVariable('WORKFLOW_BASE64JSON', Buffer.from(JSON.stringify(etc)).toString('base64'));
 
       - name: build docker image
