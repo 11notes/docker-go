@@ -3,7 +3,7 @@
   "name": "go",
   "root": "/go",
   "semver": {
-    "version": "1.25.0"
+    "version": "1.25.1"
   },
   "readme": {
     "description": "Build go apps with the default tooling present",
