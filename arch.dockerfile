@@ -47,9 +47,3 @@
     RUN set -eux; \
       apk --update --no-cache add \
         git;
-
-  # :: install go
-    RUN set -eux; \
-      go install golang.org/dl/go${APP_VERSION}@latest; \
-      go${APP_VERSION} download; \
-      ln -sf /go/bin/go${APP_VERSION} /usr/local/go/bin/go;
