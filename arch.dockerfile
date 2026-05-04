@@ -44,6 +44,11 @@
   USER root
 
   # :: install dependencies
-    RUN set -ex; \
+    RUN set -eux; \
       apk --update --no-cache add \
         git;
+
+  # :: install go
+    RUN set -eux; \
+      go install golang.org/dl/go${APP_VERSION}@latest; \
+      go${APP_VERSION} download;
