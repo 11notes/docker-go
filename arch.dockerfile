@@ -51,4 +51,5 @@
   # :: install go
     RUN set -eux; \
       go install golang.org/dl/go${APP_VERSION}@latest; \
-      go${APP_VERSION} download;
+      go${APP_VERSION} download; \
+      ln -sf /go/bin/go${APP_VERSION} /usr/local/go/bin/go;
