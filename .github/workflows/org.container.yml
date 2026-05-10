@@ -398,8 +398,8 @@ jobs:
                 return(a);
               }
 
-              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.dot, 'JSON_').join('\n'), {encoding: "utf8", flag: "a+"});
-              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(docker, 'DOCKER_').join('\n'), {encoding: "utf8", flag: "a+"});
+              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.dot, 'GLOBAL_JSON_').join('\n'), {encoding: "utf8", flag: "a+"});
+              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(docker, 'GLOBAL_DOCKER_').join('\n'), {encoding: "utf8", flag: "a+"});
 
 
             // print
@@ -630,7 +630,7 @@ jobs:
 
       # PRINT ENV
       - name: global variables / print env
-        run: env -0 | sort -z | tr '\0' '\n'
+        run: env -0 | sort -z | tr '\0' '\n' | grep -e GLOBAL_
 
 
       # ╔═════════════════════════════════════════════════════╗
