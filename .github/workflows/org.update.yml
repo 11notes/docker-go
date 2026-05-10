@@ -143,14 +143,14 @@ jobs:
 
                     // export variables
                     core.exportVariable('WORKFLOW_UPDATE', true);
-                    core.exportVariable('WORKFLOW_UPDATE_BASE64JSON', Buffer.from(JSON.stringify({build:build})).toString('base64'));
+                    core.exportVariable('WORKFLOW_UPDATE_BASE64JSON', Buffer.from(JSON.stringify({build:build, update:true, update_etc:job.inputs})).toString('base64'));
                     if(job.inputs?.unraid){
                       core.exportVariable('WORKFLOW_UPDATE_UNRAID', 'true');
-                      core.exportVariable('WORKFLOW_UPDATE_UNRAID_BASE64JSON', Buffer.from(JSON.stringify({semversuffix:"unraid", uid:99, gid:100, build:build})).toString('base64'));
+                      core.exportVariable('WORKFLOW_UPDATE_UNRAID_BASE64JSON', Buffer.from(JSON.stringify({semversuffix:"unraid", uid:99, gid:100, build:build, update:true, update_etc:job.inputs})).toString('base64'));
                     }
                     if(job.inputs?.nobody){
                       core.exportVariable('WORKFLOW_UPDATE_NOBODY', 'true');
-                      core.exportVariable('WORKFLOW_UPDATE_NOBODY_BASE64JSON', Buffer.from(JSON.stringify({semversuffix:"nobody", uid:65534, gid:65534, build:build})).toString('base64'));
+                      core.exportVariable('WORKFLOW_UPDATE_NOBODY_BASE64JSON', Buffer.from(JSON.stringify({semversuffix:"nobody", uid:65534, gid:65534, build:build, update:true, update_etc:job.inputs})).toString('base64'));
                     }
                     core.exportVariable('LATEST_TAG', semver.inc(tag, semver.diff(current, latest)));
                     core.exportVariable('LATEST_VERSION', latest);

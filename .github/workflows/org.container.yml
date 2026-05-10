@@ -849,6 +849,6 @@ jobs:
       # ╚═════════════════════════════════════════════════════╝
       # UPDATE CI/CD latest.json at https://github.com/11notes/CICD/blob/master/semver/latest.json
       - name: CICD / update latest.json
-        if: env.GLOBAL_WORKFLOW_BUILD_SUCCESS == 'true' && env.GLOBAL_JSON_CICD_LATEST == 'true'
+        if: env.GLOBAL_WORKFLOW_BUILD_SUCCESS == 'true' && env.GLOBAL_JSON_CICD_LATEST == 'true' && env.GLOBAL_INPUT_ETC_UPDATE
         run: |
-          echo "${{ env.GLOBAL_JSON_CICD_LATEST_NAME }}=${{ env.GLOBAL_DOCKER_APP_VERSION }}"
+          echo "${{ env.GLOBAL_INPUT_ETC_UPDATE_ETC_LATEST_NAME }}=${{ env.GLOBAL_DOCKER_APP_VERSION }}"
