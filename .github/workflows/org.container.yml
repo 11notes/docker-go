@@ -830,14 +830,3 @@ jobs:
             }' \
             --fail | jq -r ".access_token")
           curl -s -H "Authorization: Bearer ${TOKEN}" -X DELETE https://hub.docker.com/v2/repositories/${{ env.DOCKER_IMAGE_NAME }}/tags/latest | echo ":latest tag not found"
-
-      # UPDATE CI/CD latest.json at https://github.com/11notes/CICD/blob/master/semver/latest.json
-      - name: CICD / update latest.json
-        if: needs.docker.outputs.WORKFLOW_BUILD_SUCCESS == 'true' && env.DOCKER_CICD_LATEST == 'true'
-        uses: the-actions-org/workflow-dispatch@3133c5d135c7dbe4be4f9793872b6ef331b53bc7
-        with:
-          wait-for-completion: false
-          workflow: json.latest.yml
-          repo: 11notes/CICD
-          token: "${{ secrets.REPOSITORY_TOKEN }}"
-          inputs: '{ "app":"dotnet8", "version":"${{ env.LATEST_VERSION_80 }}" }'
