@@ -405,6 +405,9 @@ jobs:
             // print
               core.info(inspect({opt:opt, docker:docker}, {showHidden:false, depth:null, colors:true}));
 
+      - name: init / check environment
+        run: cat ${{ env.SHARED_VARIABLES }}
+
       - name: init / export environment
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
