@@ -399,7 +399,7 @@ jobs:
                 return(a);
               }
 
-              writeFileSync('${{ env.SHARED_VARIABLES }}', jsonToEnv(opt.dot, 'DOT_JSON_').join('\n'));
+              writeFileSync(resolve('${{ env.SHARED_VARIABLES }}'), jsonToEnv(opt.dot, 'DOT_JSON_').join('\n'));
 
 
             // print
@@ -407,7 +407,12 @@ jobs:
 
       - name: init / check environment
         if: matrix.platform == 'amd64'
-        run: cat ${{ env.SHARED_VARIABLES }}
+        run: |
+          cat ${{ env.SHARED_VARIABLES }}
+          ls -lah
+          pwd
+          ls -lah ${{ runner.temp }}
+          find / -name ${{ env.SHARED_VARIABLES }}
 
       - name: init / export environment
         if: matrix.platform == 'amd64'
