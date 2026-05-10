@@ -15,7 +15,6 @@
     }
   },
   "CICD":{
-    "latest": true,
-    "latest_name": "go"
+    "latest": true
   }
 }
