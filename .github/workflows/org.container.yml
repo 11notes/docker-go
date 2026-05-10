@@ -397,9 +397,9 @@ jobs:
                 return(a);
               }
 
-              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.dot, 'GLOBAL_JSON_').join('\n'), {encoding: "utf8", flag: "a+"});
-              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(docker, 'GLOBAL_DOCKER_').join('\n'), {encoding: "utf8", flag: "a+"});
-              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.input?.etc, 'GLOBAL_INPUT_ETC_').join('\n'), {encoding: "utf8", flag: "a+"});
+              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.dot, 'GLOBAL_JSON_').join('\n') + '\n', {encoding: "utf8", flag: "a+"});
+              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(docker, 'GLOBAL_DOCKER_').join('\n') + '\n', {encoding: "utf8", flag: "a+"});
+              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.input?.etc, 'GLOBAL_INPUT_ETC_').join('\n') + '\n', {encoding: "utf8", flag: "a+"});
 
             // print
               core.info(inspect({opt:opt, docker:docker}, {showHidden:false, depth:null, colors:true}));
