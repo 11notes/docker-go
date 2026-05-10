@@ -13,8 +13,5 @@
     "built": {
       "go": "https://github.com/golang/go"
     }
-  },
-  "CICD":{
-    "latest": true
   }
 }
