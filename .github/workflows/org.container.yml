@@ -2,6 +2,7 @@ name: org.container
 run-name: ${{ inputs.run-name }}
 
 env:
+  GLOBAL: ${{ runner.temp }}/global.env
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   GRYPE_MATCH_GOLANG_USING_CPES: true
   GRYPE_MATCH_DOTNET_USING_CPES: true
@@ -398,19 +399,11 @@ jobs:
                 return(a);
               }
 
-              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.dot, 'GLOBAL_JSON_').join('\n'), {encoding: "utf8", flag: "a+"});
-              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(docker, 'GLOBAL_DOCKER_').join('\n'), {encoding: "utf8", flag: "a+"});
-
+              writeFileSync('${{ env.GLOBAL }}', objectToEnvArray(opt.dot, 'GLOBAL_JSON_').join('\n'), {encoding: "utf8", flag: "a+"});
+              writeFileSync('${{ env.GLOBAL }}', objectToEnvArray(docker, 'GLOBAL_DOCKER_').join('\n'), {encoding: "utf8", flag: "a+"});
 
             // print
               core.info(inspect({opt:opt, docker:docker}, {showHidden:false, depth:null, colors:true}));
-
-      - name: init / export environment
-        if: matrix.platform == 'amd64'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: global.env
-          path: ${{ runner.temp }}/global.env
 
 
       # ╔═════════════════════════════════════════════════════╗
@@ -560,7 +553,7 @@ jobs:
         if: env.WORKFLOW_BUILD == 'true' && steps.image-push.outcome == 'success'
         id: build-success
         run: |
-          echo "WORKFLOW_BUILD_SUCCESS=true" >> $GITHUB_OUTPUT
+          echo "WORKFLOW_BUILD_SUCCESS=true" >> ${{ env.GLOBAL }}
 
 
       # ╔═════════════════════════════════════════════════════╗
@@ -626,7 +619,7 @@ jobs:
 
       # SET ENV
       - name: global variables / set env
-        run: cat ${{ runner.temp }}/global.env >> $GITHUB_ENV
+        run: cat ${{ env.GLOBAL }} >> $GITHUB_ENV
 
       # PRINT ENV
       - name: global variables / print env
