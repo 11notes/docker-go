@@ -399,6 +399,7 @@ jobs:
 
               writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.dot, 'GLOBAL_JSON_').join('\n'), {encoding: "utf8", flag: "a+"});
               writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(docker, 'GLOBAL_DOCKER_').join('\n'), {encoding: "utf8", flag: "a+"});
+              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.input?.etc, 'GLOBAL_INPUT_ETC_').join('\n'), {encoding: "utf8", flag: "a+"});
 
             // print
               core.info(inspect({opt:opt, docker:docker}, {showHidden:false, depth:null, colors:true}));
@@ -627,7 +628,7 @@ jobs:
 
       # SET ENV
       - name: global variables / set env
-        run: cat ${{ env.GLOBAL }} >> $GITHUB_ENV
+        run: cat ${{ runner.temp }}/global.env >> $GITHUB_ENV
 
 
       # ╔═════════════════════════════════════════════════════╗
@@ -732,7 +733,7 @@ jobs:
 
       # SET ENV
       - name: global variables / set env
-        run: cat ${{ env.GLOBAL }} >> $GITHUB_ENV
+        run: cat ${{ runner.temp }}/global.env >> $GITHUB_ENV
 
       # ╔═════════════════════════════════════════════════════╗
       # ║                 SETUP ENVIRONMENT                   ║
