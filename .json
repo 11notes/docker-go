@@ -13,5 +13,9 @@
     "built": {
       "go": "https://github.com/golang/go"
     }
+  },
+  "CICD":{
+    "latest": true,
+    "latest_name": "go"
   }
 }
