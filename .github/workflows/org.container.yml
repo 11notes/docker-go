@@ -384,25 +384,26 @@ jobs:
               }
 
             // export all variables
-              const jsonToEnv = (o, p = '', a = []) => {
+              const objectToEnvArray = (o, p = '', a = []) => {
                 for(const k in o){
                   switch(typeof(o[k])){
                     case 'object':
                     case 'array':
-                      jsonToEnv(o[k], `${p}${k}_`.toUpperCase(), a)
+                      objectToEnvArray(o[k], `${p}${k}_`.toUpperCase(), a)
                       break;
                     default:
-                      a[`${p}${k}`.toUpperCase()] = o[k];
+                      a.push(`${p}${k}`.toUpperCase() + '=' + o[k]);
                   }
                 }
                 return(a);
               }
 
-              writeFileSync(resolve('${{ runner.temp }}/global.env'), jsonToEnv(opt.dot, 'DOT_JSON_').join('\n'));
+              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(opt.dot, 'JSON_').join('\n'), {encoding: "utf8", flag: "a+"});
+              writeFileSync('${{ runner.temp }}/global.env', objectToEnvArray(docker, 'DOCKER_').join('\n'), {encoding: "utf8", flag: "a+"});
 
 
             // print
-              core.info(inspect({opt:opt, docker:docker, env:jsonToEnv(opt.dot, 'DOT_JSON_').join('\n')}, {showHidden:false, depth:null, colors:true}));
+              core.info(inspect({opt:opt, docker:docker}, {showHidden:false, depth:null, colors:true}));
 
       - name: init / export environment
         if: matrix.platform == 'amd64'
