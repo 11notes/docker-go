@@ -843,12 +843,3 @@ jobs:
             }' \
             --fail | jq -r ".access_token")
           curl -s -H "Authorization: Bearer ${TOKEN}" -X DELETE https://hub.docker.com/v2/repositories/${{ env.DOCKER_IMAGE_NAME }}/tags/latest | echo ":latest tag not found"
-
-      # ╔═════════════════════════════════════════════════════╗
-      # ║                       CI/CD                         ║
-      # ╚═════════════════════════════════════════════════════╝
-      # UPDATE CI/CD latest.json at https://github.com/11notes/CICD/blob/master/semver/latest.json
-      - name: CICD / update latest.json
-        if: env.GLOBAL_WORKFLOW_BUILD_SUCCESS == 'true' && env.GLOBAL_INPUT_ETC_UPDATE == 'true' && env.GLOBAL_INPUT_ETC_UPDATE_ETC_LATEST_NAME != ''
-        run: |
-          echo "${{ env.GLOBAL_INPUT_ETC_UPDATE_ETC_LATEST_NAME }}=${{ env.GLOBAL_DOCKER_APP_VERSION }}"

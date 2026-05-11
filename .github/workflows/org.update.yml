@@ -29,18 +29,27 @@ jobs:
       contents: write
 
     steps:
+      # ╔═════════════════════════════════════════════════════╗
+      # ║                 SETUP ENVIRONMENT                   ║
+      # ╚═════════════════════════════════════════════════════╝
+      # CHECKOUT
       - name: init / checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: 'master'
           fetch-depth: 0
 
+      # INSTALL SEMVER PACKAGE
       - name: update / setup node
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: '24'
       - run: npm i semver
 
+      # ╔═════════════════════════════════════════════════════╗
+      # ║                   COMPARE SEMVER                    ║
+      # ╚═════════════════════════════════════════════════════╝
+      # COMPARE SEMVER OF CURRENT AND LATEST AND TAGS
       - name: update / compare latest with current version
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
@@ -115,6 +124,7 @@ jobs:
                   const tag = await fetch(`https://hub.docker.com/v2/repositories/${job.json.image}/tags/${latest}`);
                   if(tag.status === 200){
                     checks.latestTagExists = true;
+                    core.warning(`${latest} tag already exists, aborting`);
                   }
                 }catch(e){
                   core.warning(e);
