@@ -38,14 +38,14 @@ jobs:
 
       - name: check if updated is needed
         if: env.LATEST_VERSION != 'null' && env.LATEST_VERSION != ''
-        uses: 11notes/action-org-update@v1
+        uses: 11notes/action-org-update@v1 # v1.0.0
         with:
           image: '11notes/go'
           latest: ${{ env.LATEST_VERSION }}
 
       - name: call org.update
         if: env.ORG_UPDATE == 'true'
-        uses: the-actions-org/workflow-dispatch@3133c5d135c7dbe4be4f9793872b6ef331b53bc7
+        uses: benc-uk/workflow-dispatch@7a027648b88c2413826b6ddd6c76114894dc5ec4 #v1.3.1
         with:
           wait-for-completion: false
           workflow: org.update.yml
@@ -54,7 +54,7 @@ jobs:
 
       - name: update semver version
         if: env.ORG_UPDATE == 'true'
-        uses: the-actions-org/workflow-dispatch@3133c5d135c7dbe4be4f9793872b6ef331b53bc7
+        uses: benc-uk/workflow-dispatch@7a027648b88c2413826b6ddd6c76114894dc5ec4 #v1.3.1
         with:
           wait-for-completion: false
           workflow: json.latest.yml
