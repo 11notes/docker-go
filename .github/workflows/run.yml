@@ -40,7 +40,6 @@ jobs:
         if: env.LATEST_VERSION != 'null' && env.LATEST_VERSION != ''
         uses: 11notes/action-org-update@v1 # v1.0.0
         with:
-          image: '11notes/go'
           latest: ${{ env.LATEST_VERSION }}
 
       - name: call org.update
