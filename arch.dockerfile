@@ -39,6 +39,7 @@
 
   # :: multi-stage
     COPY --from=util / /
+    COPY ./rootfs/ /
 
 # :: RUN
   USER root
@@ -47,3 +48,9 @@
     RUN set -eux; \
       apk --update --no-cache add \
         git;
+
+  # :: update alpine
+    RUN set -eux; \
+      apk update; \
+      apk add --upgrade apk-tools; \
+      apk upgrade --available;
